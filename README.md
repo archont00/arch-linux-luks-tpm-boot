@@ -340,4 +340,4 @@ Some people might not like the idea of the keyfile being stored on the harddisk.
 
 Further, if we wipe the `/etc/tpm-secret/secret_key.bin`, we would have to replace the existing key in LUKS key slot with a new one any time we use `/etc/tpm-secret/tpm_storesecret.sh` - both for un-sealing and re-sealing. (However, I might implement this feature in future.)
 
-For all those reasons, I currently don't see a reason for not storing the keyfile on your harddisk.
+All in all, I don't currently see a reason for not storing the keyfile on your harddisk.
