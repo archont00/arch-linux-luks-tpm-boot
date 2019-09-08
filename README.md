@@ -182,7 +182,7 @@ The hexdump output should be the same. (Hexdump is useful for outputting binary 
 
 ## Modifying initial ramdisk
 
-If storing and reading secret_key.bin works, it is time to modify initramfs to make use of TPM.
+If storing and reading `/etc/secret-tpm/secret_key.bin` works, it is time to modify initramfs to make use of TPM.
 
 Our task is to:
 * Have tcsd daemon running in initial userspace.
