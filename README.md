@@ -119,9 +119,9 @@ This is the core of wanted functionality: if any of the measurements in the PCR 
 
 ## Add a new key file to LUKS
 
-LUKS allows to store multiple keys (or 'passwords') and any of them may be used to decrypt the LUKS partition - this is because the partition is actually encrypted with a MasterSecretKey (there is only one), which in turn is encrypted by your LUKS keys  (there may be more of them).
+LUKS allows to store multiple keys (or passphrases) and any of them may be used to decrypt the LUKS partition - this is because the partition is actually encrypted with a MasterSecretKey (there is only one), which in turn is encrypted by your LUKS keys  (there may be more of them).
 
-At the moment, you should have at least one LUKS key (passphrase) setup. I assume you also have a backup of LUKS header. For the purposes of automatic decryption of LUKS partition during boot, we will use a new key.
+At the moment, you should have at least one LUKS key (passphrase) setup and probably stored in LUKS key slot 0. I assume you also have a backup of LUKS header - if the header gets damaged on the encrypted partition, you will not be able to unlock it. For the purposes of automatic decryption of LUKS partition during boot, we will use a new key.
 
 First, create a key file, e.g. with the help of `urandom`:
 
