@@ -218,7 +218,7 @@ The `HOOKS`:
 * sd-encrypt enables auto-unlocking LUKS devices.
 * sd-lvm2 enables supports for LVM (I use LVM on LUKS).
 
-__NOTE: If you chose to use busybox based initramfs, you may try `HOOKS=(base udev keyboard autodetect keymap consolefont modconf block tpm encrypt lvm2 filesystems fsck)` instead.__
+> NOTE: If you chose to use busybox based initramfs, you may try `HOOKS=(base udev keyboard autodetect keymap consolefont modconf block tpm encrypt lvm2 filesystems fsck)` instead.
 
 Further, we must tell systemd where to look for LUKS key file. Create a new file:
 
@@ -227,7 +227,7 @@ $ cat /etc/crypttab.initramfs
 cryptlvm1      UUID=b561874e-ce31-4721-bde7-1f8e7b728846    /secret_key.bin
 ```
 
-__NOTE: If you chose to use busybox based initramfs, put this to `/etc/crypttab` instead.__
+> NOTE: If you chose to use busybox based initramfs, put this to `/etc/crypttab` instead.
 
 Where cryptlvm1 can be any string, UUID is the /dev/disk/by-uuid/UUID of your encrypted partition (`sda4` in my case) and the last parameter is a path to the LUKS key file (within initramfs).
 
