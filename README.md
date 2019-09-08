@@ -242,12 +242,12 @@ This will re-generate all initial ramdisks you have configured - if you do not w
 
 ## The early userspace boot process
 
-That is how it works:
+This is how it works:
 * UEFI will store its measurements to PCR 0 - 7 and run GRUB boot loader.
-* GRUB will store its measurements to PCR 8 - 9 and run the /boot/vmlinuz-linux-lts kernel with its initial ramdisk from /boot/initramfs-linux-lts.img.
-* Kernel will start init process - in this case managed by systemd.
+* GRUB will store its measurements to PCR 8 - 9 and run the `/boot/vmlinuz-linux-lts` kernel with its initial ramdisk from `/boot/initramfs-linux-lts.img`.
+* Kernel will start init process - in my case managed by systemd.
 * systemd will start various service unit files, including `/usr/lib/systemd/system/sysinit.target.wants/tpm.service`, which will start `tcsd` daemon, read the LUKS key from NVRAM and store it to `/secret_key.bin`.
-* Then, systemd will continue - unlock LUKS partition, active LVM, mount real root, destroy initramfs and hand-over init to the real root.
+* Then, systemd will continue - unlock the LUKS partition, activate LVM, mount real root file system, destroy initramfs and hand-over init to the real root.
 
 ## Testing
 
