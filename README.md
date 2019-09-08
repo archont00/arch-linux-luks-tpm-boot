@@ -301,7 +301,7 @@ NOTE: This is why I recommend not to remove the passphrase from your LUKS partit
 
 After kernel, initramfs, GRUB, etc. update, you can run `$ sudo /etc/tpm-secret/tpm_storesecret.sh --no-seal` so that the LUKS key in the NVRAM is not sealed to the PCRs anymore. After you have done this, you should be able to reboot and TPM would give out the LUKS key during initramfs init, just as before the update.
 
-Once you did this reboot, the PCRs will contain the correct values from your new kernel (initramfs, etc.). Now you can run `$ sudo /etc/tpm-secret/tpm_storesecret.sh` one more time, however without the `--no-seal` parameter, and LUKS key will again get sealed to current PCR values.
+Once you did this reboot, the PCRs will contain the correct values from your new kernel (initramfs, etc.). Now you can run `$ sudo /etc/tpm-secret/tpm_storesecret.sh` one more time, nevertheless without the `--no-seal` parameter, and LUKS key will again get sealed to current PCR values.
 
 ## Other considerations
 
