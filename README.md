@@ -322,13 +322,13 @@ It is also possible to avoid GRUB completely and run kernel + initramfs (unencry
 
 ### Automatic unseal & re-seal of key to PCR
 
-After any change in /boot, it is necessary to unseal the LUKS key from PCRs, reboot and re-seal it again to the new state of PCRs. This is prone to a mistake (user forgets to unseal and after reboot he has to get to the remote server physically to enter the LUKS passphrase), not such a big deal for a desktop computer, though.
+After any change in /boot, it is necessary to unseal the LUKS key from PCRs, reboot and re-seal it again to the new state of PCRs. This is prone to a mistake (the user forgets to unseal and after reboot he has to go to the remote server physically to enter the LUKS passphrase; not such a big deal for a desktop computer, though).
 
-One option would be to block automatic updates to /boot (by setting it read-only, by bloking upgrade of related apps like GRUB, kernel, ... in /etc/pacman.conf) and update these packages only willingly + unseal + reboot + re-seal.
+One option would be to block automatic updates to /boot (by setting it read-only, by blocking upgrade of related apps like GRUB, kernel, ... in /etc/pacman.conf) and update these packages only willingly followed by unseal + reboot + re-seal.
 
-Another option would be to pre-calculate the PCR hashes before reboot and re-seal with the new values. I have not found much info if tpm_tools can actually do that and even if so, it would be prone to error any time GRUB changes the methodology.
+Another option would be to pre-calculate the PCR hashes and re-seal with the new values before reboot. I have not found much info if tpm_tools can actually do that and even if so, it would be prone to error any time GRUB changes the measurements methodology.
 
-Yet another option would be to have a pre-shutdown systemd.service to check own (cumulative) hash of all files in /boot and in case of change, unseal the secret, let the computer reboot and automatically re-seal. Not really sure it is a good idea, though.
+Yet another option would be to have a pre-shutdown systemd.service to check (cumulative) hash of all files in /boot (and 1st stage of GRUB bootloader) and in case of a change, it would unseal the secret, let the computer reboot and automatically re-seal. Little do I know if it is a good idea, though.
 
 ## Last, but not least
 
