@@ -208,7 +208,7 @@ MODULES=(quota_v2 quota_tree tpm tpm_tis)
 HOOKS=(base systemd keyboard autodetect sd-vconsole modconf block tpm sd-encrypt sd-lvm2 filesystems fsck)
 ```
 
-The `MODULES` directives adds tpm and tpm_tis kernel modules to initramfs (needed for my TPM device, yours may be different).
+The `MODULES` directive adds tpm and tpm_tis kernel modules to initramfs (needed for my TPM device, yours may be different).
 
 The `HOOKS`:
 * systemd enables systemd based initramfs.
