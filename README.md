@@ -50,7 +50,7 @@ See [TrouSerS FAQ](http://trousers.sourceforge.net/faq.html#4.4) for more detail
 
 ## Install Arch Linux + GRUB + encrypted system
 
-It is up to you how you want to have your disks setup - read through the Arch Linux Wiki pages on [partitioning](https://wiki.archlinux.org/index.php/Partitioning) and setup your full disk [encryption](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system), just make sure you have a separate unencrypted partition for /boot.
+It is up to you how you want to have your disks setup - read through the Arch Linux Wiki pages on [partitioning](https://wiki.archlinux.org/index.php/Partitioning) and setup your full disk [encryption](https://wiki.archlinux.org/index.php/Dm-crypt/Encrypting_an_entire_system), just make sure you have a separate unencrypted partition for /boot. You can also [convert](https://wiki.archlinux.org/index.php/Dm-crypt/Device_encryption#Encrypt_an_unencrypted_filesystem) unencrypted partition to LUKS.
 
 E.g.
 ```
@@ -61,7 +61,7 @@ Device       Start        End    Sectors   Size Type
 /dev/sda4  2103296 1953525134 1951421839 930.5G unknown            # Encrypted partition (root fs)
 ```
 
-Now you should have a working encrypted system, which asks for a LUSK passphrase on console during boot.
+Now you should have a working encrypted system, which asks for a LUKS passphrase on console during boot.
 
 Next step is to enable TPM measurements to be performed by GRUB and stored to TPM PCRs 8 and 9. This happens automatically, as long as the `tpm` module is loaded.
 
