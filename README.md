@@ -160,7 +160,7 @@ Note: I have chosen to set the permission of the NVRAM I am creating to OWNERWRI
 Further, I have created another script `/etc/tpm-secret/tpm_getsecret.sh` that gets the contents out of the NVRAM. This script will only be able to read the secret from NVRAM once, since it afterwards blocks further reads by reading 0 bits from the NVRAM area (see READ_STCLEAR). Again, it's a bit hacky, but it does its job - make it executable again:
 
 ```
-sudo chmod +x /etc/tpm-secret/tpm_nv-get.sh
+sudo chmod +x /etc/tpm-secret/tpm_getsecret.sh
 ```
 
 Using the `--no-seal` parameter for `/etc/tpm-secret/tpm_storesecret.sh` will allow to read the NVRAM area without checking the status of PCRs 0-9. This is useful for testing and upgrades - see below.
