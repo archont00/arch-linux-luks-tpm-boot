@@ -293,7 +293,7 @@ Thanks a lot to Frank Grötzner and Ken Goldman!
 
 ## Booting if something went wrong (or if there was a kernel update)
 
-As described earlier, in case something went wrong within this process, or if there was a kernel update and your system won't read the contents of the NVRAM because the kernel-checksum has changed, press E in the GRUB boot menu. Then, append an ".orig" on the line were the initrd is specified. Now press F10 to boot. This allows you to boot the “normal” way, by providing a LUKS passphrase.
+As described earlier, in case something went wrong within this process, or if there was a kernel update and your system won't read the contents of the NVRAM because the kernel-checksum has changed and systemd does not even ask for the LUKS passphrase on console: then press E in the GRUB boot menu, append an ".orig" on the line were the initrd is specified. Now press F10 to boot. This allows you to boot the “normal” way, by providing a LUKS passphrase.
 
 NOTE: This is why I recommend not to remove the passphrase from your LUKS partition!
 
