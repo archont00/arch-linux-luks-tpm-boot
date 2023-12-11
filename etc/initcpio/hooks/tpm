@@ -1,10 +1,16 @@
 #!/usr/bin/ash
 
 run_hook() {
+    # Enable the loopback interface to allow socket communication.
+    # tcsd provides API through a socket.
+    ip link set lo up
+
     # Configure TPM
     chown tss:tss /dev/tpm0
     chmod 600 /dev/tpm0
-    sleep 1
+
+    # tcsd requires the owner/group of /etc/tcsd.conf to be root/tss.
+    chown 0:tss /etc/tcsd.conf
 
     # Start tcsd
     if [ -f /usr/bin/tcsd ]; then
@@ -15,6 +21,14 @@ run_hook() {
     echo TPM... getting secret from NVRAM
     /etc/tpm-secret/tpm_getsecret.sh > /secret_key.bin
     chmod 0400 /secret_key.bin
+
+    # If secret_key is empty then remove it.
+    # In some cases the existence of empty key file prevents querying passpharse.
+    [ -s /secret_key.bin ] || rm /secret_key.bin
+    
+    # We had all the required job
+    # and it will be nice to free up resources such as sockets.
+    killall tcsd
 }
 
 # Run as `/etc/hooks/tpm run_hook` to run the function()
