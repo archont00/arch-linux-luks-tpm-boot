@@ -18,18 +18,16 @@ build() {
     # Copy the daemon incl. dependencies + config to the initrd
     add_binary /usr/bin/tcsd
     add_file   /etc/tcsd.conf
-    chown tss:tss "$BUILDROOT/etc/tcsd.conf"
 
     # Copy the TPM configuration
     add_full_dir /var/lib/tpm
-    chown -R tss:tss "$BUILDROOT/var/lib/tpm"
 
     # Copy the tpm tools to read the NVRAM and to read the secret
     add_binary /usr/bin/tpm_nvread
     add_binary /usr/bin/tpm_nvinfo
 
     # Copy extra scripts
-    add_dir   /etc/tpm-secret 0700
+    add_dir   /etc/tpm-secret 0600
     add_file  /etc/tpm-secret/secret.conf
     add_file  /etc/tpm-secret/tpm_getsecret.sh
 
@@ -38,7 +36,9 @@ build() {
     local_add_conf '^tss:' /etc/group
 
     # Create /etc/hosts
-    local_add_conf '^127.0.0.1' /etc/hosts
+    # In some systems they have no entry for localhost in /etc/hosts ;(
+    # So grep'ing in hosts file may not work
+    echo "127.0.0.1 localhost" >> "$BUILDROOT/etc/hosts"
 
     # This will copy runtime /etc/initcpio/hooks/tpm to $BUILDROOT/hooks/tpm
     add_runscript
