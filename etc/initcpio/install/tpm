@@ -45,7 +45,8 @@ build() {
 
     # However, with systemd based initramfs, the runtime hooks are ignored and
     # we must execute via systemd.service file
-    cat >"$BUILDROOT/usr/lib/systemd/system/tpm.service" <<EOF
+    if type add_systemd_unit &>/dev/null; then
+        cat >"$BUILDROOT/usr/lib/systemd/system/tpm.service" <<EOF
 [Unit]
 Description=Get secret from TPM NVRAM
 Before=cryptsetup-pre.target
@@ -58,10 +59,11 @@ ExecStartPre=/usr/bin/modprobe tpm_tis
 ExecStart=/hooks/tpm run_hook
 EOF
 
-    add_systemd_unit cryptsetup-pre.target
-    cd "$BUILDROOT/usr/lib/systemd/system/sysinit.target.wants"
-    ln -sf ../cryptsetup-pre.target cryptsetup-pre.target
-    ln -sf ../tpm.service           tpm.service
+        add_systemd_unit cryptsetup-pre.target
+        cd "$BUILDROOT/usr/lib/systemd/system/sysinit.target.wants"
+        ln -sf ../cryptsetup-pre.target cryptsetup-pre.target
+        ln -sf ../tpm.service           tpm.service
+    fi
 }
 
 help() {
